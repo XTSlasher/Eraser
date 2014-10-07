@@ -1,0 +1,29 @@
+package net.slasherxt.eraser.client.gui;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.slasherxt.eraser.client.container.ContainerConverter;
+import net.slasherxt.eraser.reference.Reference;
+import net.slasherxt.eraser.tileentity.TileEntityConverter;
+
+import org.lwjgl.opengl.GL11;
+
+public class GuiConverter extends GuiContainer {
+	public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, ":converter.png");
+	
+	public GuiConverter(InventoryPlayer invPlayer, TileEntityConverter entity) {
+		super(new ContainerConverter(invPlayer, entity));
+		
+		xSize = 176;
+		ySize = 165;
+	}
+	
+	@Override
+	public void drawGuiContainerBackgroundLayer(float f, int j, int i) {
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+	}
+}

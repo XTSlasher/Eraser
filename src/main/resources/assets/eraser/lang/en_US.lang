@@ -1,0 +1,7 @@
+item.Eraser:eraser_0.name=Basic Eraser
+item.Eraser:eraser_1.name=Small Eraser
+item.Eraser:eraser_2.name=Medium Eraser
+item.Eraser:eraser_3.name=Large Eraser
+item.Eraser:eraser_4.name=Mega Eraser
+
+tile.eraserConverter.name=Eraser Converter
