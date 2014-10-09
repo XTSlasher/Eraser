@@ -6,6 +6,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.slasherxt.eraser.inventory.SlotConverter;
+import net.slasherxt.eraser.inventory.SlotConverterInput;
+import net.slasherxt.eraser.inventory.SlotConverterOutput;
 import net.slasherxt.eraser.tileentity.TileEntityConverter;
 
 public class ContainerConverter extends Container {
@@ -24,9 +26,9 @@ public class ContainerConverter extends Container {
 			}
 		}
 		
-		this.addSlotToContainer(new Slot(entity, 0, 56, 17));
+		this.addSlotToContainer(new SlotConverterInput(invPlayer.player, entity, 0, 56, 17));
         this.addSlotToContainer(new SlotConverter(invPlayer.player, entity, 1, 56, 53));
-        this.addSlotToContainer(new Slot(entity, 2, 116, 35));
+        this.addSlotToContainer(new SlotConverterOutput(invPlayer.player, entity, 2, 116, 35));
 	}
 	
 	@Override

@@ -1,22 +1,23 @@
 package net.slasherxt.eraser.item;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.slasherxt.eraser.init.ModItems;
 import net.slasherxt.eraser.reference.Reference;
 import net.slasherxt.eraser.utility.LogHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemEraser extends Item {
 	
 	private int[] tierStorage = {50, 450, 900, 1350, 5000};
-	private int[] tierAddition = {1, 9, 18, 27, 100};
-	private ItemEraser[] erasers = {ModItems.basicEraser, ModItems.smallEraser, ModItems.mediumEraser, ModItems.largeEraser, ModItems.megaEraser};
 	
 	public ItemEraser(int tier) {
 		setCreativeTab(CreativeTabs.tabTools);
@@ -25,17 +26,29 @@ public class ItemEraser extends Item {
 		setTextureName(Reference.MOD_ID + ":eraser_" + tier);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		super.addInformation(stack, player, list, bool);
+		NBTTagCompound data = stack.getTagCompound();
+		if(data != null) {
+			if(data.hasKey("shavingCount")) {
+				list.add("Shavings Stored: " + stack.stackTagCompound.getInteger("shavingCount"));
+			}
+		}
+	}
+	
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-    {
+	{
 		if(stack.stackTagCompound == null) {
 			stack.stackTagCompound = new NBTTagCompound();
 			stack.stackTagCompound.setInteger("tier", getEraserTier(stack));
 		}
 
-		int count = eraseBlocks(world, player, x, y, z, stack.stackTagCompound.getInteger("tier"));
-		
 		if(stack.stackTagCompound.getInteger("shavingCount") < tierStorage[stack.stackTagCompound.getInteger("tier")]) {
+			int count = eraseBlocks(world, player, x, y, z, stack.stackTagCompound.getInteger("tier"));
 			stack.stackTagCompound.setInteger("shavingCount", stack.stackTagCompound.getInteger("shavingCount") + count);
 		} else {
 			player.addChatMessage(player.func_145748_c_().appendText("Your eraser is full."));
@@ -44,9 +57,6 @@ public class ItemEraser extends Item {
 		if(stack.stackTagCompound.getInteger("shavingCount") > tierStorage[stack.stackTagCompound.getInteger("tier")]) {
 			stack.stackTagCompound.setInteger("shavingCount", tierStorage[stack.stackTagCompound.getInteger("tier")]);
 		}
-		
-		LogHelper.info("Count: " + stack.getTagCompound().getInteger("shavingCount"));
-		LogHelper.info("Tier: " + stack.getTagCompound().getInteger("tier"));
 		
         return false;
     }
@@ -128,8 +138,6 @@ public class ItemEraser extends Item {
 				}
 			}
 		}
-		
-		System.err.println(counter);
 		return counter;
 	}
 }

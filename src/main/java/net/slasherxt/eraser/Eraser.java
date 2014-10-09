@@ -4,6 +4,7 @@ import net.slasherxt.eraser.handler.ConfigurationHandler;
 import net.slasherxt.eraser.handler.GuiHandler;
 import net.slasherxt.eraser.init.ModBlocks;
 import net.slasherxt.eraser.init.ModItems;
+import net.slasherxt.eraser.item.crafting.ConverterRecipes;
 import net.slasherxt.eraser.proxy.IProxy;
 import net.slasherxt.eraser.reference.Reference;
 import net.slasherxt.eraser.utility.LogHelper;
@@ -43,6 +44,13 @@ public class Eraser {
 		ModItems.init();
 		ModBlocks.init();
 		ModBlocks.registerTileEntities();
+		
+		LogHelper.info("Loading Recipes");
+		ConverterRecipes.shaping();
+		
+		//for(int i=0;i<ConverterRecipes.shaping().getShapingList().size();i++) {
+		//	LogHelper.info("What is this: " + ConverterRecipes.shaping().getShapingList().get(i).toString());
+		//}
 		
 		LogHelper.info("Init Complete");
 	}

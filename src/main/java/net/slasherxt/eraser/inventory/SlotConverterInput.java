@@ -6,21 +6,20 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.slasherxt.eraser.item.ItemEraser;
 
-public class SlotConverter extends Slot {
+public class SlotConverterInput extends Slot {
 	
 	private EntityPlayer player;
 
-	public SlotConverter(EntityPlayer player, IInventory inv, int slotIndex, int xDis, int yDis) {
+	public SlotConverterInput(EntityPlayer player, IInventory inv, int slotIndex, int xDis, int yDis) {
 		super(inv, slotIndex, xDis, yDis);
 		this.player = player;
 	}
 	
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		if(stack.getItem() instanceof ItemEraser) {			
-			return true;
+		if(stack.getItem() instanceof ItemEraser) {
+			return false;
 		}
-		
-		return false;
+		return true;
 	}
 }

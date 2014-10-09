@@ -29,11 +29,11 @@ public class BlockConverter extends BlockContainer {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public static IIcon top;
+	public IIcon top;
 	@SideOnly(Side.CLIENT)
-	public static IIcon side;
+	public IIcon side;
 	@SideOnly(Side.CLIENT)
-	public static IIcon front;
+	public IIcon front;
 	
 	@Override
 	@SideOnly(Side.CLIENT)
